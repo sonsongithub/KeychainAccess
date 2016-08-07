@@ -594,7 +594,7 @@ public class Keychain {
             } else {
                 status = SecItemUpdate(query, attributes)
                 if status != errSecSuccess {
-                    throw securityError(status: status)
+                    throw securityError(status)
                 }
             }
             #else
@@ -795,7 +795,7 @@ public class Keychain {
                 }
             }
         } else {
-            let error = securityError(status: Status.param.rawValue)
+            let error = securityError(Status.param.rawValue)
             completion(account: nil, password: nil, error: error)
         }
     }
@@ -817,7 +817,7 @@ public class Keychain {
                 }
             }
         } else {
-            let error = securityError(status: Status.param.rawValue)
+            let error = securityError(Status.param.rawValue)
             completion(password: nil, error: error)
         }
     }
@@ -842,7 +842,7 @@ public class Keychain {
                 }
             }
         } else {
-            let error = securityError(status: Status.param.rawValue)
+            let error = securityError(Status.param.rawValue)
             completion(error: error)
         }
     }
