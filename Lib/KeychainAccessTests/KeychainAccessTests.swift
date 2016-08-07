@@ -249,13 +249,13 @@ class KeychainAccessTests: XCTestCase {
             let keychain = Keychain(server: server, protocolType: .https)
             XCTAssertEqual(keychain.server, URL)
             XCTAssertEqual(keychain.protocolType, ProtocolType.https)
-            XCTAssertEqual(keychain.authenticationType, AuthenticationType.default)
+            XCTAssert(keychain.authenticationType == AuthenticationType.default)
         }
         do {
             let keychain = Keychain(server: URL, protocolType: .https)
             XCTAssertEqual(keychain.server, URL)
             XCTAssertEqual(keychain.protocolType, ProtocolType.https)
-            XCTAssertEqual(keychain.authenticationType, AuthenticationType.default)
+            XCTAssert(keychain.authenticationType == AuthenticationType.default)
         }
     }
     
@@ -583,7 +583,7 @@ class KeychainAccessTests: XCTestCase {
                 XCTAssertEqual(attributes?.securityDomain, "securitydomain")
                 XCTAssertEqual(attributes?.server, "example.com")
                 XCTAssertEqual(attributes?.`protocol`, ProtocolType.https.rawValue)
-                XCTAssertEqual(attributes?.authenticationType, AuthenticationType.default.rawValue)
+                XCTAssertEqual(attributes?.authenticationType, AuthenticationType.`default`.rawValue)
                 XCTAssertEqual(attributes?.port, 443)
                 XCTAssertEqual(attributes?.path, "")
             } catch {
@@ -1242,7 +1242,7 @@ class KeychainAccessTests: XCTestCase {
             let accessibility: Accessibility = .whenPasscodeSetThisDeviceOnly
 
             let policy: AuthenticationPolicy = [.UserPresence]
-            let flags = SecAccessControlCreateFlags(rawValue: policy.rawValue)
+            let flags = SecAccessControlCreateFlags(rawValue: CFOptionFlags(policy.rawValue))
 
             var error: Unmanaged<CFError>?
             let accessControl = SecAccessControlCreateWithFlags(kCFAllocatorDefault, accessibility.rawValue, flags, &error)
@@ -1437,7 +1437,7 @@ class KeychainAccessTests: XCTestCase {
             let accessibility: Accessibility = .whenPasscodeSetThisDeviceOnly
 
             let policy: AuthenticationPolicy = [.UserPresence]
-            let flags = SecAccessControlCreateFlags(rawValue: policy.rawValue)
+            let flags = SecAccessControlCreateFlags(rawValue: CFOptionFlags(policy.rawValue))
 
             var error: Unmanaged<CFError>?
             let accessControl = SecAccessControlCreateWithFlags(kCFAllocatorDefault, accessibility.rawValue, flags, &error)
@@ -1449,7 +1449,7 @@ class KeychainAccessTests: XCTestCase {
             let accessibility: Accessibility = .whenPasscodeSetThisDeviceOnly
 
             let policy: AuthenticationPolicy = [.DevicePasscode]
-            let flags = SecAccessControlCreateFlags(rawValue: policy.rawValue)
+            let flags = SecAccessControlCreateFlags(rawValue: CFOptionFlags(policy.rawValue))
 
             var error: Unmanaged<CFError>?
             let accessControl = SecAccessControlCreateWithFlags(kCFAllocatorDefault, accessibility.rawValue, flags, &error)
