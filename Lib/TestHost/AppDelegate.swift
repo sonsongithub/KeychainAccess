@@ -1,9 +1,9 @@
 //
-//  KeychainAccess.h
-//  KeychainAccess
+//  AppDelegate.swift
+//  TestHost
 //
-//  Created by kishikawa katsumi on 2014/12/24.
-//  Copyright (c) 2014 kishikawa katsumi. All rights reserved.
+//  Created by kishikawa katsumi on 7/10/16.
+//  Copyright © 2016 kishikawa katsumi. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#if os(OSX)
+import Cocoa
 
-FOUNDATION_EXPORT double KeychainAccessVersionNumber;
-FOUNDATION_EXPORT const unsigned char KeychainAccessVersionString[];
+@NSApplicationMain
+class AppDelegate: NSObject, NSApplicationDelegate {
+
+    @IBOutlet weak var window: NSWindow!
+
+    func applicationDidFinishLaunching(aNotification: NSNotification) {}
+    
+}
+#else
+import UIKit
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        return true
+    }
+}
+#endif
