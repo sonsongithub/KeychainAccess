@@ -5,6 +5,23 @@
 //  Created by kishikawa katsumi on 2014/12/24.
 //  Copyright (c) 2014 kishikawa katsumi. All rights reserved.
 //
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import Foundation
 import Security
@@ -63,149 +80,149 @@ public enum AuthenticationType {
 
 public enum Accessibility {
     /**
-     Item data can only be accessed
-     while the device is unlocked. This is recommended for items that only
-     need be accesible while the application is in the foreground. Items
-     with this attribute will migrate to a new device when using encrypted
-     backups.
-     */
+    Item data can only be accessed
+    while the device is unlocked. This is recommended for items that only
+    need be accesible while the application is in the foreground. Items
+    with this attribute will migrate to a new device when using encrypted
+    backups.
+    */
     case whenUnlocked
-    
+
     /**
-     Item data can only be
-     accessed once the device has been unlocked after a restart. This is
-     recommended for items that need to be accesible by background
-     applications. Items with this attribute will migrate to a new device
-     when using encrypted backups.
-     */
+    Item data can only be
+    accessed once the device has been unlocked after a restart. This is
+    recommended for items that need to be accesible by background
+    applications. Items with this attribute will migrate to a new device
+    when using encrypted backups.
+    */
     case afterFirstUnlock
-    
+
     /**
-     Item data can always be accessed
-     regardless of the lock state of the device. This is not recommended
-     for anything except system use. Items with this attribute will migrate
-     to a new device when using encrypted backups.
-     */
+    Item data can always be accessed
+    regardless of the lock state of the device. This is not recommended
+    for anything except system use. Items with this attribute will migrate
+    to a new device when using encrypted backups.
+    */
     case always
-    
+
     /**
-     Item data can
-     only be accessed while the device is unlocked. This class is only
-     available if a passcode is set on the device. This is recommended for
-     items that only need to be accessible while the application is in the
-     foreground. Items with this attribute will never migrate to a new
-     device, so after a backup is restored to a new device, these items
-     will be missing. No items can be stored in this class on devices
-     without a passcode. Disabling the device passcode will cause all
-     items in this class to be deleted.
-     */
+    Item data can
+    only be accessed while the device is unlocked. This class is only
+    available if a passcode is set on the device. This is recommended for
+    items that only need to be accessible while the application is in the
+    foreground. Items with this attribute will never migrate to a new
+    device, so after a backup is restored to a new device, these items
+    will be missing. No items can be stored in this class on devices
+    without a passcode. Disabling the device passcode will cause all
+    items in this class to be deleted.
+    */
     @available(iOS 8.0, OSX 10.10, *)
     case whenPasscodeSetThisDeviceOnly
-    
+
     /**
-     Item data can only
-     be accessed while the device is unlocked. This is recommended for items
-     that only need be accesible while the application is in the foreground.
-     Items with this attribute will never migrate to a new device, so after
-     a backup is restored to a new device, these items will be missing.
-     */
+    Item data can only
+    be accessed while the device is unlocked. This is recommended for items
+    that only need be accesible while the application is in the foreground.
+    Items with this attribute will never migrate to a new device, so after
+    a backup is restored to a new device, these items will be missing.
+    */
     case whenUnlockedThisDeviceOnly
-    
+
     /**
-     Item data can
-     only be accessed once the device has been unlocked after a restart.
-     This is recommended for items that need to be accessible by background
-     applications. Items with this attribute will never migrate to a new
-     device, so after a backup is restored to a new device these items will
-     be missing.
-     */
+    Item data can
+    only be accessed once the device has been unlocked after a restart.
+    This is recommended for items that need to be accessible by background
+    applications. Items with this attribute will never migrate to a new
+    device, so after a backup is restored to a new device these items will
+    be missing.
+    */
     case afterFirstUnlockThisDeviceOnly
-    
+
     /**
-     Item data can always
-     be accessed regardless of the lock state of the device. This option
-     is not recommended for anything except system use. Items with this
-     attribute will never migrate to a new device, so after a backup is
-     restored to a new device, these items will be missing.
-     */
+    Item data can always
+    be accessed regardless of the lock state of the device. This option
+    is not recommended for anything except system use. Items with this
+    attribute will never migrate to a new device, so after a backup is
+    restored to a new device, these items will be missing.
+    */
     case alwaysThisDeviceOnly
 }
 
-public struct AuthenticationPolicy : OptionSet {
+public struct AuthenticationPolicy: OptionSet {
     /**
-     User presence policy using Touch ID or Passcode. Touch ID does not
-     have to be available or enrolled. Item is still accessible by Touch ID
-     even if fingers are added or removed.
-     */
+    User presence policy using Touch ID or Passcode. Touch ID does not 
+    have to be available or enrolled. Item is still accessible by Touch ID
+    even if fingers are added or removed.
+    */
     @available(iOS 8.0, OSX 10.10, *)
     @available(watchOS, unavailable)
     public static let UserPresence = AuthenticationPolicy(rawValue: 1 << 0)
-    
+
     /**
-     Constraint: Touch ID (any finger). Touch ID must be available and
-     at least one finger must be enrolled. Item is still accessible by
-     Touch ID even if fingers are added or removed.
-     */
+    Constraint: Touch ID (any finger). Touch ID must be available and 
+    at least one finger must be enrolled. Item is still accessible by 
+    Touch ID even if fingers are added or removed.
+    */
     @available(iOS 9.0, *)
     @available(OSX, unavailable)
     @available(watchOS, unavailable)
     public static let TouchIDAny = AuthenticationPolicy(rawValue: 1 << 1)
-    
+
     /**
-     Constraint: Touch ID from the set of currently enrolled fingers.
-     Touch ID must be available and at least one finger must be enrolled.
-     When fingers are added or removed, the item is invalidated.
-     */
+    Constraint: Touch ID from the set of currently enrolled fingers. 
+    Touch ID must be available and at least one finger must be enrolled. 
+    When fingers are added or removed, the item is invalidated.
+    */
     @available(iOS 9.0, *)
     @available(OSX, unavailable)
     @available(watchOS, unavailable)
     public static let TouchIDCurrentSet = AuthenticationPolicy(rawValue: 1 << 3)
-    
+
     /**
-     Constraint: Device passcode
-     */
+    Constraint: Device passcode
+    */
     @available(iOS 9.0, OSX 10.11, *)
     @available(watchOS, unavailable)
     public static let DevicePasscode = AuthenticationPolicy(rawValue: 1 << 4)
-    
+
     /**
-     Constraint logic operation: when using more than one constraint,
-     at least one of them must be satisfied.
-     */
+    Constraint logic operation: when using more than one constraint, 
+    at least one of them must be satisfied.
+    */
     @available(iOS 9.0, *)
     @available(OSX, unavailable)
     @available(watchOS, unavailable)
     public static let Or = AuthenticationPolicy(rawValue: 1 << 14)
-    
+
     /**
-     Constraint logic operation: when using more than one constraint,
-     all must be satisfied.
-     */
+    Constraint logic operation: when using more than one constraint,
+    all must be satisfied.
+    */
     @available(iOS 9.0, *)
     @available(OSX, unavailable)
     @available(watchOS, unavailable)
     public static let And = AuthenticationPolicy(rawValue: 1 << 15)
-    
+
     /**
-     Create access control for private key operations (i.e. sign operation)
-     */
+    Create access control for private key operations (i.e. sign operation)
+    */
     @available(iOS 9.0, *)
     @available(OSX, unavailable)
     @available(watchOS, unavailable)
     public static let PrivateKeyUsage = AuthenticationPolicy(rawValue: 1 << 30)
-    
+
     /**
-     Security: Application provided password for data encryption key generation.
-     This is not a constraint but additional item encryption mechanism.
-     */
+    Security: Application provided password for data encryption key generation.
+    This is not a constraint but additional item encryption mechanism.
+    */
     @available(iOS 9.0, *)
     @available(OSX, unavailable)
     @available(watchOS, unavailable)
     public static let ApplicationPassword = AuthenticationPolicy(rawValue: 1 << 31)
-    
-    public let rawValue : Int
-    
-    public init(rawValue:Int) {
+
+    public let rawValue: UInt
+
+    public init(rawValue: UInt) {
         self.rawValue = rawValue
     }
 }
@@ -223,7 +240,7 @@ public struct Attributes {
     public var persistentRef: Data? {
         return attributes[ValuePersistentRef] as? Data
     }
-    
+
     public var accessible: String? {
         return attributes[AttributeAccessible] as? String
     }
@@ -297,21 +314,21 @@ public struct Attributes {
     public var path: String? {
         return attributes[AttributePath] as? String
     }
-    
-    private let attributes: [String: AnyObject]
-    
-    init(attributes: [String: AnyObject]) {
+
+    fileprivate let attributes: [String: Any]
+
+    init(attributes: [String: Any]) {
         self.attributes = attributes
     }
-    
-    public subscript(key: String) -> AnyObject? {
+
+    public subscript(key: String) -> Any? {
         get {
             return attributes[key]
         }
     }
 }
 
-public class Keychain {
+public final class Keychain {
     public var itemClass: ItemClass {
         return options.itemClass
     }
@@ -339,7 +356,7 @@ public class Keychain {
     public var accessibility: Accessibility {
         return options.accessibility
     }
-    
+
     @available(iOS 8.0, OSX 10.10, *)
     @available(watchOS, unavailable)
     public var authenticationPolicy: AuthenticationPolicy? {
@@ -357,14 +374,14 @@ public class Keychain {
     public var comment: String? {
         return options.comment
     }
-    
+
     @available(iOS 8.0, OSX 10.10, *)
     @available(watchOS, unavailable)
     public var authenticationPrompt: String? {
         return options.authenticationPrompt
     }
     
-    private let options: Options
+    fileprivate let options: Options
     
     // MARK:
     
@@ -411,7 +428,7 @@ public class Keychain {
         self.init(options)
     }
     
-    private init(_ opts: Options) {
+    fileprivate init(_ opts: Options) {
         options = opts
     }
     
@@ -422,7 +439,7 @@ public class Keychain {
         options.accessibility = accessibility
         return Keychain(options)
     }
-    
+
     @available(iOS 8.0, OSX 10.10, *)
     @available(watchOS, unavailable)
     public func accessibility(_ accessibility: Accessibility, authenticationPolicy: AuthenticationPolicy) -> Keychain {
@@ -449,13 +466,13 @@ public class Keychain {
         options.comment = comment
         return Keychain(options)
     }
-    
-    public func attributes(_ attributes: [String: AnyObject]) -> Keychain {
+
+    public func attributes(_ attributes: [String: Any]) -> Keychain {
         var options = self.options
         attributes.forEach { options.attributes.updateValue($1, forKey: $0) }
         return Keychain(options)
     }
-    
+
     @available(iOS 8.0, OSX 10.10, *)
     @available(watchOS, unavailable)
     public func authenticationPrompt(_ authenticationPrompt: String) -> Keychain {
@@ -474,23 +491,23 @@ public class Keychain {
         guard let data = try getData(key) else  {
             return nil
         }
-        guard let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String else {
+        guard let string = String(data: data, encoding: .utf8) else {
             throw conversionError(message: "failed to convert data to string")
         }
         return string
     }
-    
+
     public func getData(_ key: String) throws -> Data? {
         var query = options.query()
-        
+
         query[MatchLimit] = MatchLimitOne
         query[ReturnData] = true
-        
+
         query[AttributeAccount] = key
-        
+
         var result: AnyObject?
-        let status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(query, UnsafeMutablePointer($0)) }
-        
+        let status = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
+
         switch status {
         case errSecSuccess:
             guard let data = result as? Data else {
@@ -503,25 +520,25 @@ public class Keychain {
             throw securityError(status: status)
         }
     }
-    
-    public func get<T>(_ key: String, _ handler: (Attributes?) -> T) throws -> T {
+
+    public func get<T>(_ key: String, handler: (Attributes?) -> T) throws -> T {
         var query = options.query()
-        
+
         query[MatchLimit] = MatchLimitOne
-        
+
         query[ReturnData] = true
         query[ReturnAttributes] = true
         query[ReturnRef] = true
         query[ReturnPersistentRef] = true
-        
+
         query[AttributeAccount] = key
-        
+
         var result: AnyObject?
-        let status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(query, UnsafeMutablePointer($0)) }
-        
+        let status = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
+
         switch status {
         case errSecSuccess:
-            guard let attributes = result as? [String: AnyObject] else {
+            guard let attributes = result as? [String: Any] else {
                 throw Status.unexpectedError
             }
             return handler(Attributes(attributes: attributes))
@@ -531,11 +548,11 @@ public class Keychain {
             throw securityError(status: status)
         }
     }
-    
+
     // MARK:
     
     public func set(_ value: String, key: String) throws {
-        guard let data = value.data(using: String.Encoding.utf8, allowLossyConversion: false) else {
+        guard let data = value.data(using: .utf8, allowLossyConversion: false) else {
             throw conversionError(message: "failed to convert string to data")
         }
         try set(data, key: key)
@@ -545,46 +562,47 @@ public class Keychain {
         var query = options.query()
         query[AttributeAccount] = key
         #if os(iOS)
-            if #available(iOS 9.0, *) {
-                query[UseAuthenticationUI] = UseAuthenticationUIFail
-            } else {
-                query[UseNoAuthenticationUI] = true
-            }
+        if #available(iOS 9.0, *) {
+            query[UseAuthenticationUI] = UseAuthenticationUIFail
+        } else {
+            query[UseNoAuthenticationUI] = true
+        }
         #elseif os(OSX)
-            if #available(OSX 10.11, *) {
-                query[UseAuthenticationUI] = UseAuthenticationUIFail
-            }
+        query[ReturnData] = true
+        if #available(OSX 10.11, *) {
+            query[UseAuthenticationUI] = UseAuthenticationUIFail
+        }
         #endif
-        
-        var status = SecItemCopyMatching(query, nil)
+
+        var status = SecItemCopyMatching(query as CFDictionary, nil)
         switch status {
         case errSecSuccess, errSecInteractionNotAllowed:
             var query = options.query()
             query[AttributeAccount] = key
-            
+
             var (attributes, error) = options.attributes(key: nil, value: value)
             if let error = error {
                 print(error.localizedDescription)
                 throw error
             }
-            
+
             options.attributes.forEach { attributes.updateValue($1, forKey: $0) }
-            
+
             #if os(iOS)
-                if status == errSecInteractionNotAllowed && floor(NSFoundationVersionNumber) <= floor(NSFoundationVersionNumber_iOS_8_0) {
-                    try remove(key)
-                    try set(value, key: key)
-                } else {
-                    status = SecItemUpdate(query, attributes)
-                    if status != errSecSuccess {
-                        throw securityError(status: status)
-                    }
-                }
-            #else
-                status = SecItemUpdate(query, attributes)
+            if status == errSecInteractionNotAllowed && floor(NSFoundationVersionNumber) <= floor(NSFoundationVersionNumber_iOS_8_0) {
+                try remove(key)
+                try set(value, key: key)
+            } else {
+                status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
                 if status != errSecSuccess {
                     throw securityError(status: status)
                 }
+            }
+            #else
+            status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
+            if status != errSecSuccess {
+                throw securityError(status: status)
+            }
             #endif
         case errSecItemNotFound:
             var (attributes, error) = options.attributes(key: key, value: value)
@@ -592,10 +610,10 @@ public class Keychain {
                 print(error.localizedDescription)
                 throw error
             }
-            
+
             options.attributes.forEach { attributes.updateValue($1, forKey: $0) }
-            
-            status = SecItemAdd(attributes, nil)
+
+            status = SecItemAdd(attributes as CFDictionary, nil)
             if status != errSecSuccess {
                 throw securityError(status: status)
             }
@@ -603,12 +621,12 @@ public class Keychain {
             throw securityError(status: status)
         }
     }
-    
+
     public subscript(key: String) -> String? {
         get {
             return (try? get(key)).flatMap { $0 }
         }
-        
+
         set {
             if let value = newValue {
                 do {
@@ -621,22 +639,22 @@ public class Keychain {
             }
         }
     }
-    
+
     public subscript(string key: String) -> String? {
         get {
             return self[key]
         }
-        
+
         set {
             self[key] = newValue
         }
     }
-    
+
     public subscript(data key: String) -> Data? {
         get {
             return (try? getData(key)).flatMap { $0 }
         }
-        
+
         set {
             if let value = newValue {
                 do {
@@ -649,7 +667,7 @@ public class Keychain {
             }
         }
     }
-    
+
     public subscript(attributes key: String) -> Attributes? {
         get {
             return (try? get(key) { $0 }).flatMap { $0 }
@@ -662,7 +680,7 @@ public class Keychain {
         var query = options.query()
         query[AttributeAccount] = key
         
-        let status = SecItemDelete(query)
+        let status = SecItemDelete(query as CFDictionary)
         if status != errSecSuccess && status != errSecItemNotFound {
             throw securityError(status: status)
         }
@@ -671,10 +689,10 @@ public class Keychain {
     public func removeAll() throws {
         var query = options.query()
         #if !os(iOS) && !os(watchOS) && !os(tvOS)
-            query[MatchLimit] = MatchLimitAll
+        query[MatchLimit] = MatchLimitAll
         #endif
         
-        let status = SecItemDelete(query)
+        let status = SecItemDelete(query as CFDictionary)
         if status != errSecSuccess && status != errSecItemNotFound {
             throw securityError(status: status)
         }
@@ -686,7 +704,7 @@ public class Keychain {
         var query = options.query()
         query[AttributeAccount] = key
         
-        let status = SecItemCopyMatching(query, nil)
+        let status = SecItemCopyMatching(query as CFDictionary, nil)
         switch status {
         case errSecSuccess:
             return true
@@ -700,18 +718,18 @@ public class Keychain {
     // MARK:
     
     public class func allKeys(_ itemClass: ItemClass) -> [(String, String)] {
-        var query = [String: AnyObject]()
+        var query = [String: Any]()
         query[Class] = itemClass.rawValue
         query[AttributeSynchronizable] = SynchronizableAny
         query[MatchLimit] = MatchLimitAll
         query[ReturnAttributes] = true
         
         var result: AnyObject?
-        let status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(query, UnsafeMutablePointer($0)) }
+        let status = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
         
         switch status {
         case errSecSuccess:
-            if let items = result as? [[String: AnyObject]] {
+            if let items = result as? [[String: Any]] {
                 return prettify(itemClass: itemClass, items: items).map {
                     switch itemClass {
                     case .genericPassword:
@@ -726,29 +744,29 @@ public class Keychain {
         default: ()
         }
         
-//        securityError(status: status)
+        securityError(status: status)
         return []
     }
     
     public func allKeys() -> [String] {
-        return self.dynamicType.prettify(itemClass: itemClass, items: items()).map { $0["key"] as! String }
+        return type(of: self).prettify(itemClass: itemClass, items: items()).map { $0["key"] as! String }
     }
     
-    public class func allItems(_ itemClass: ItemClass) -> [[String: AnyObject]] {
-        var query = [String: AnyObject]()
+    public class func allItems(_ itemClass: ItemClass) -> [[String: Any]] {
+        var query = [String: Any]()
         query[Class] = itemClass.rawValue
         query[MatchLimit] = MatchLimitAll
         query[ReturnAttributes] = true
         #if os(iOS) || os(watchOS) || os(tvOS)
-            query[ReturnData] = true
+        query[ReturnData] = true
         #endif
         
         var result: AnyObject?
-        let status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(query, UnsafeMutablePointer($0)) }
+        let status = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
         
         switch status {
         case errSecSuccess:
-            if let items = result as? [[String: AnyObject]] {
+            if let items = result as? [[String: Any]] {
                 return prettify(itemClass: itemClass, items: items)
             }
         case errSecItemNotFound:
@@ -756,113 +774,113 @@ public class Keychain {
         default: ()
         }
         
-//        securityError(status: status)
+        securityError(status: status)
         return []
     }
     
-    public func allItems() -> [[String: AnyObject]] {
-        return self.dynamicType.prettify(itemClass: itemClass, items: items())
+    public func allItems() -> [[String: Any]] {
+        return type(of: self).prettify(itemClass: itemClass, items: items())
     }
     
     #if os(iOS)
     @available(iOS 8.0, *)
-    public func getSharedPassword(completion: (account: String?, password: String?, error: NSError?) -> () = { account, password, error -> () in }) {
+    public func getSharedPassword(_ completion: @escaping (_ account: String?, _ password: String?, _ error: NSError?) -> () = { account, password, error -> () in }) {
         if let domain = server.host {
-            self.dynamicType.requestSharedWebCredential(domain: domain, account: nil) { (credentials, error) -> () in
+            type(of: self).requestSharedWebCredential(domain: domain, account: nil) { (credentials, error) -> () in
                 if let credential = credentials.first {
                     let account = credential["account"]
                     let password = credential["password"]
-                    completion(account: account, password: password, error: error)
+                    completion(account, password, error)
                 } else {
-                    completion(account: nil, password: nil, error: error)
+                    completion(nil, nil, error)
                 }
             }
         } else {
             let error = securityError(status: Status.param.rawValue)
-            completion(account: nil, password: nil, error: error)
+            completion(nil, nil, error)
         }
     }
     #endif
-    
+
     #if os(iOS)
     @available(iOS 8.0, *)
-    public func getSharedPassword(account: String, completion: (password: String?, error: NSError?) -> () = { password, error -> () in }) {
+    public func getSharedPassword(_ account: String, completion: @escaping (_ password: String?, _ error: NSError?) -> () = { password, error -> () in }) {
         if let domain = server.host {
-            self.dynamicType.requestSharedWebCredential(domain: domain, account: account) { (credentials, error) -> () in
+            type(of: self).requestSharedWebCredential(domain: domain, account: account) { (credentials, error) -> () in
                 if let credential = credentials.first {
                     if let password = credential["password"] {
-                        completion(password: password, error: error)
+                        completion(password, error)
                     } else {
-                        completion(password: nil, error: error)
+                        completion(nil, error)
                     }
                 } else {
-                    completion(password: nil, error: error)
+                    completion(nil, error)
                 }
             }
         } else {
             let error = securityError(status: Status.param.rawValue)
-            completion(password: nil, error: error)
+            completion(nil, error)
         }
     }
     #endif
-    
+
     #if os(iOS)
     @available(iOS 8.0, *)
-    public func setSharedPassword(_ password: String, account: String, completion: (error: NSError?) -> () = { e -> () in }) {
-        setSharedPassword(password, account: account, completion: completion)
+    public func setSharedPassword(_ password: String, account: String, completion: (_ error: NSError?) -> () = { e -> () in }) {
+        setSharedPassword((password as String?)!, account: account, completion: completion)
     }
     #endif
-    
+
     #if os(iOS)
     @available(iOS 8.0, *)
-    private func setSharedPassword(_ password: String?, account: String, completion: (error: NSError?) -> () = { e -> () in }) {
+    fileprivate func setSharedPassword(_ password: String?, account: String, completion: @escaping (_ error: NSError?) -> () = { e -> () in }) {
         if let domain = server.host {
-            SecAddSharedWebCredential(domain, account, password) { error -> () in
+            SecAddSharedWebCredential(domain as CFString, account as CFString, password as CFString?) { error -> () in
                 if let error = error {
-                    completion(error: error.error)
+                    completion(error.error)
                 } else {
-                    completion(error: nil)
+                    completion(nil)
                 }
             }
         } else {
             let error = securityError(status: Status.param.rawValue)
-            completion(error: error)
+            completion(error)
         }
     }
     #endif
-    
+
     #if os(iOS)
     @available(iOS 8.0, *)
-    public func removeSharedPassword(account: String, completion: (error: NSError?) -> () = { e -> () in }) {
+    public func removeSharedPassword(_ account: String, completion: @escaping (_ error: NSError?) -> () = { e -> () in }) {
         setSharedPassword(nil, account: account, completion: completion)
     }
     #endif
-    
+
     #if os(iOS)
     @available(iOS 8.0, *)
-    public class func requestSharedWebCredential(completion: (credentials: [[String: String]], error: NSError?) -> () = { credentials, error -> () in }) {
+    public class func requestSharedWebCredential(_ completion: @escaping (_ credentials: [[String: String]], _ error: NSError?) -> () = { credentials, error -> () in }) {
         requestSharedWebCredential(domain: nil, account: nil, completion: completion)
     }
     #endif
-    
+
     #if os(iOS)
     @available(iOS 8.0, *)
-    public class func requestSharedWebCredential(domain: String, completion: (credentials: [[String: String]], error: NSError?) -> () = { credentials, error -> () in }) {
+    public class func requestSharedWebCredential(domain: String, completion: @escaping (_ credentials: [[String: String]], _ error: NSError?) -> () = { credentials, error -> () in }) {
         requestSharedWebCredential(domain: domain, account: nil, completion: completion)
     }
     #endif
-    
+
     #if os(iOS)
     @available(iOS 8.0, *)
-    public class func requestSharedWebCredential(domain: String, account: String, completion: (credentials: [[String: String]], error: NSError?) -> () = { credentials, error -> () in }) {
-        requestSharedWebCredential(domain: Optional(domain), account: Optional(account), completion: completion)
+    public class func requestSharedWebCredential(domain: String, account: String, completion: @escaping (_ credentials: [[String: String]], _ error: NSError?) -> () = { credentials, error -> () in }) {
+        requestSharedWebCredential(domain: Optional(domain)!, account: Optional(account)!, completion: completion)
     }
     #endif
-    
+
     #if os(iOS)
     @available(iOS 8.0, *)
-    private class func requestSharedWebCredential(domain: String?, account: String?, completion: (credentials: [[String: String]], error: NSError?) -> ()) {
-        SecRequestSharedWebCredential(domain, account) { (credentials, error) -> () in
+    fileprivate class func requestSharedWebCredential(domain: String?, account: String?, completion: @escaping (_ credentials: [[String: String]], _ error: NSError?) -> ()) {
+        SecRequestSharedWebCredential(domain as CFString?, account as CFString?) { (credentials, error) -> () in
             var remoteError: NSError?
             if let error = error {
                 remoteError = error.error
@@ -873,30 +891,32 @@ public class Keychain {
             if let credentials = credentials {
                 let credentials = (credentials as NSArray).map { credentials -> [String: String] in
                     var credential = [String: String]()
-                    if let server = credentials[AttributeServer] as? String {
-                        credential["server"] = server
-                    }
-                    if let account = credentials[AttributeAccount] as? String {
-                        credential["account"] = account
-                    }
-                    if let password = credentials[SharedPassword] as? String {
-                        credential["password"] = password
+                    if let credentials = credentials as? [String: String] {
+                        if let server = credentials[AttributeServer] {
+                            credential["server"] = server
+                        }
+                        if let account = credentials[AttributeAccount] {
+                            credential["account"] = account
+                        }
+                        if let password = credentials[SharedPassword] {
+                            credential["password"] = password
+                        }
                     }
                     return credential
                 }
-                completion(credentials: credentials, error: remoteError)
+                completion(credentials, remoteError)
             } else {
-                completion(credentials: [], error: remoteError)
+                completion([], remoteError)
             }
         }
     }
     #endif
-    
+
     #if os(iOS)
     /**
-     @abstract Returns a randomly generated password.
-     @return String password in the form xxx-xxx-xxx-xxx where x is taken from the sets "abcdefghkmnopqrstuvwxy", "ABCDEFGHJKLMNPQRSTUVWXYZ", "3456789" with at least one character from each set being present.
-     */
+    @abstract Returns a randomly generated password.
+    @return String password in the form xxx-xxx-xxx-xxx where x is taken from the sets "abcdefghkmnopqrstuvwxy", "ABCDEFGHJKLMNPQRSTUVWXYZ", "3456789" with at least one character from each set being present.
+    */
     @available(iOS 8.0, *)
     public class func generatePassword() -> String {
         return SecCreateSharedWebCredentialPassword()! as String
@@ -905,20 +925,20 @@ public class Keychain {
     
     // MARK:
     
-    private func items() -> [[String: AnyObject]] {
+    fileprivate func items() -> [[String: Any]] {
         var query = options.query()
         query[MatchLimit] = MatchLimitAll
         query[ReturnAttributes] = true
         #if os(iOS) || os(watchOS) || os(tvOS)
-            query[ReturnData] = true
+        query[ReturnData] = true
         #endif
         
         var result: AnyObject?
-        let status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(query, UnsafeMutablePointer($0)) }
+        let status = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
         
         switch status {
         case errSecSuccess:
-            if let items = result as? [[String: AnyObject]] {
+            if let items = result as? [[String: Any]] {
                 return items
             }
         case errSecItemNotFound:
@@ -926,13 +946,13 @@ public class Keychain {
         default: ()
         }
         
-//        securityError(status: status)
+        securityError(status: status)
         return []
     }
     
-    private class func prettify(itemClass: ItemClass, items: [[String: AnyObject]]) -> [[String: AnyObject]] {
-        let items = items.map { attributes -> [String: AnyObject] in
-            var item = [String: AnyObject]()
+    fileprivate class func prettify(itemClass: ItemClass, items: [[String: Any]]) -> [[String: Any]] {
+        let items = items.map { attributes -> [String: Any] in
+            var item = [String: Any]()
             
             item["class"] = itemClass.description
             
@@ -964,7 +984,7 @@ public class Keychain {
                 item["key"] = key
             }
             if let data = attributes[ValueData] as? Data {
-                if let text = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String {
+                if let text = String(data: data, encoding: .utf8) {
                     item["value"] = text
                 } else  {
                     item["value"] = data
@@ -979,7 +999,7 @@ public class Keychain {
             if let synchronizable = attributes[AttributeSynchronizable] as? Bool {
                 item["synchronizable"] = synchronizable ? "true" : "false"
             }
-            
+
             return item
         }
         return items
@@ -987,18 +1007,19 @@ public class Keychain {
     
     // MARK:
     
-    private class func conversionError(message: String) -> NSError {
+    fileprivate class func conversionError(message: String) -> NSError {
         let error = NSError(domain: KeychainAccessErrorDomain, code: Int(Status.conversionError.rawValue), userInfo: [NSLocalizedDescriptionKey: message])
         print("error:[\(error.code)] \(error.localizedDescription)")
         
         return error
     }
     
-    private func conversionError(message: String) -> NSError {
-        return self.dynamicType.conversionError(message: message)
+    fileprivate func conversionError(message: String) -> NSError {
+        return type(of: self).conversionError(message: message)
     }
-    
-    private class func securityError(status: OSStatus) -> NSError {
+
+    @discardableResult
+    fileprivate class func securityError(status: OSStatus) -> NSError {
         let message = Status(status: status).description
         
         let error = NSError(domain: KeychainAccessErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
@@ -1006,9 +1027,10 @@ public class Keychain {
         
         return error
     }
-    
-    private func securityError(status: OSStatus) -> NSError {
-        return self.dynamicType.securityError(status: status)
+
+    @discardableResult
+    fileprivate func securityError(status: OSStatus) -> NSError {
+        return type(of: self).securityError(status: status)
     }
 }
 
@@ -1031,8 +1053,8 @@ struct Options {
     var comment: String?
     
     var authenticationPrompt: String?
-    
-    var attributes = [String: AnyObject]()
+
+    var attributes = [String: Any]()
 }
 
 /** Class Key Constant */
@@ -1088,8 +1110,8 @@ private let ValuePersistentRef = String(kSecValuePersistentRef)
 private let UseOperationPrompt = String(kSecUseOperationPrompt)
 
 #if os(iOS)
-    @available(iOS, introduced:8.0, deprecated:9.0, message:"Use a UseAuthenticationUI instead.")
-    private let UseNoAuthenticationUI = String(kSecUseNoAuthenticationUI)
+@available(iOS, introduced: 8.0, deprecated: 9.0, message: "Use a UseAuthenticationUI instead.")
+private let UseNoAuthenticationUI = String(kSecUseNoAuthenticationUI)
 #endif
 
 @available(iOS 9.0, OSX 10.11, *)
@@ -1113,11 +1135,11 @@ private let UseAuthenticationUIFail = String(kSecUseAuthenticationUIFail)
 private let UseAuthenticationUISkip = String(kSecUseAuthenticationUISkip)
 
 #if os(iOS)
-    /** Credential Key Constants */
-    private let SharedPassword = String(kSecSharedPassword)
+/** Credential Key Constants */
+private let SharedPassword = String(kSecSharedPassword)
 #endif
 
-extension Keychain : CustomStringConvertible, CustomDebugStringConvertible {
+extension Keychain: CustomStringConvertible, CustomDebugStringConvertible {
     public var description: String {
         let items = allItems()
         if items.isEmpty {
@@ -1139,8 +1161,8 @@ extension Keychain : CustomStringConvertible, CustomDebugStringConvertible {
 
 extension Options {
     
-    func query() -> [String: AnyObject] {
-        var query = [String: AnyObject]()
+    func query() -> [String: Any] {
+        var query = [String: Any]()
         
         query[Class] = itemClass.rawValue
         query[AttributeSynchronizable] = SynchronizableAny
@@ -1150,9 +1172,9 @@ extension Options {
             query[AttributeService] = service
             // Access group is not supported on any simulators.
             #if (!arch(i386) && !arch(x86_64)) || (!os(iOS) && !os(watchOS) && !os(tvOS))
-                if let accessGroup = self.accessGroup {
-                    query[AttributeAccessGroup] = accessGroup
-                }
+            if let accessGroup = self.accessGroup {
+                query[AttributeAccessGroup] = accessGroup
+            }
             #endif
         case .internetPassword:
             query[AttributeServer] = server.host
@@ -1160,7 +1182,7 @@ extension Options {
             query[AttributeProtocol] = protocolType.rawValue
             query[AttributeAuthenticationType] = authenticationType.rawValue
         }
-        
+
         if #available(OSX 10.10, *) {
             if authenticationPrompt != nil {
                 query[UseOperationPrompt] = authenticationPrompt
@@ -1170,14 +1192,14 @@ extension Options {
         return query
     }
     
-    func attributes(key: String?, value: Data) -> ([String: AnyObject], NSError?) {
-        var attributes: [String: AnyObject]
+    func attributes(key: String?, value: Data) -> ([String: Any], NSError?) {
+        var attributes: [String: Any]
         
         if key != nil {
             attributes = query()
             attributes[AttributeAccount] = key
         } else {
-            attributes = [String: AnyObject]()
+            attributes = [String: Any]()
         }
         
         attributes[ValueData] = value
@@ -1188,11 +1210,11 @@ extension Options {
         if comment != nil {
             attributes[AttributeComment] = comment
         }
-        
+
         if let policy = authenticationPolicy {
             if #available(OSX 10.10, *) {
                 var error: Unmanaged<CFError>?
-                guard let accessControl = SecAccessControlCreateWithFlags(kCFAllocatorDefault, accessibility.rawValue, SecAccessControlCreateFlags(rawValue: CFOptionFlags(policy.rawValue)), &error) else {
+                guard let accessControl = SecAccessControlCreateWithFlags(kCFAllocatorDefault, accessibility.rawValue as CFTypeRef, SecAccessControlCreateFlags(rawValue: CFOptionFlags(policy.rawValue)), &error) else {
                     if let error = error?.takeUnretainedValue() {
                         return (attributes, error.error)
                     }
@@ -1215,17 +1237,17 @@ extension Options {
 
 // MARK:
 
-extension Attributes : CustomStringConvertible, CustomDebugStringConvertible {
+extension Attributes: CustomStringConvertible, CustomDebugStringConvertible {
     public var description: String {
         return "\(attributes)"
     }
-    
+
     public var debugDescription: String {
         return description
     }
 }
 
-extension ItemClass : RawRepresentable, CustomStringConvertible {
+extension ItemClass: RawRepresentable, CustomStringConvertible {
     
     public init?(rawValue: String) {
         switch rawValue {
@@ -1247,7 +1269,7 @@ extension ItemClass : RawRepresentable, CustomStringConvertible {
         }
     }
     
-    public var description : String {
+    public var description: String {
         switch self {
         case .genericPassword:
             return "GenericPassword"
@@ -1257,7 +1279,7 @@ extension ItemClass : RawRepresentable, CustomStringConvertible {
     }
 }
 
-extension ProtocolType : RawRepresentable, CustomStringConvertible {
+extension ProtocolType: RawRepresentable, CustomStringConvertible {
     
     public init?(rawValue: String) {
         switch rawValue {
@@ -1395,7 +1417,7 @@ extension ProtocolType : RawRepresentable, CustomStringConvertible {
         }
     }
     
-    public var description : String {
+    public var description: String {
         switch self {
         case .ftp:
             return "FTP"
@@ -1463,7 +1485,7 @@ extension ProtocolType : RawRepresentable, CustomStringConvertible {
     }
 }
 
-extension AuthenticationType : RawRepresentable, CustomStringConvertible {
+extension AuthenticationType: RawRepresentable, CustomStringConvertible {
     
     public init?(rawValue: String) {
         switch rawValue {
@@ -1504,12 +1526,12 @@ extension AuthenticationType : RawRepresentable, CustomStringConvertible {
             return String(kSecAttrAuthenticationTypeHTTPDigest)
         case .htmlForm:
             return String(kSecAttrAuthenticationTypeHTMLForm)
-        default:
+        case .`default`:
             return String(kSecAttrAuthenticationTypeDefault)
         }
     }
     
-    public var description : String {
+    public var description: String {
         switch self {
         case .ntlm:
             return "NTLM"
@@ -1525,13 +1547,13 @@ extension AuthenticationType : RawRepresentable, CustomStringConvertible {
             return "HTTPDigest"
         case .htmlForm:
             return "HTMLForm"
-        default:
+        case .`default`:
             return "Default"
         }
     }
 }
 
-extension Accessibility : RawRepresentable, CustomStringConvertible {
+extension Accessibility: RawRepresentable, CustomStringConvertible {
     
     public init?(rawValue: String) {
         if #available(OSX 10.10, *) {
@@ -1572,7 +1594,7 @@ extension Accessibility : RawRepresentable, CustomStringConvertible {
             }
         }
     }
-    
+
     public var rawValue: String {
         switch self {
         case .whenUnlocked:
@@ -1596,7 +1618,7 @@ extension Accessibility : RawRepresentable, CustomStringConvertible {
         }
     }
     
-    public var description : String {
+    public var description: String {
         switch self {
         case .whenUnlocked:
             return "WhenUnlocked"
@@ -1620,13 +1642,13 @@ extension CFError {
     var error: NSError {
         let domain = CFErrorGetDomain(self) as String
         let code = CFErrorGetCode(self)
-        let userInfo = CFErrorCopyUserInfo(self) as [NSObject: AnyObject]
+        let userInfo = CFErrorCopyUserInfo(self) as! [NSObject: Any]
         
         return NSError(domain: domain, code: code, userInfo: userInfo)
     }
 }
 
-public enum Status : OSStatus, Error {
+public enum Status: OSStatus, Error {
     case success                            = 0
     case unimplemented                      = -4
     case diskFull                           = -34
@@ -1688,7 +1710,7 @@ public enum Status : OSStatus, Error {
     case policyDenied                       = -26270
     case invalidKey                         = -26274
     case decode                             = -26275
-    case internal_                          = -26276
+    case `internal`                         = -26276
     case unsupportedAlgorithm               = -26268
     case unsupportedOperation               = -26271
     case unsupportedPadding                 = -26273
@@ -1714,7 +1736,7 @@ public enum Status : OSStatus, Error {
     case upgradePending                     = -34019
     case mpSignatureInvalid                 = -25327
     case otrTooOld                          = -25328
-    case otridTooNew                        = -25329
+    case otrIDTooNew                        = -25329
     case serviceNotAvailable                = -67585
     case insufficientClientID               = -67586
     case deviceReset                        = -67587
@@ -2032,7 +2054,7 @@ public enum Status : OSStatus, Error {
     case unexpectedError                    = -99999
 }
 
-extension Status : RawRepresentable, CustomStringConvertible {
+extension Status: RawRepresentable, CustomStringConvertible {
     
     public init(status: OSStatus) {
         if let mappedStatus = Status(rawValue: status) {
@@ -2042,7 +2064,7 @@ extension Status : RawRepresentable, CustomStringConvertible {
         }
     }
     
-    public var description : String {
+    public var description: String {
         switch self {
         case .success:
             return "No error."
@@ -2166,7 +2188,7 @@ extension Status : RawRepresentable, CustomStringConvertible {
             return "The provided key material was not valid."
         case .decode:
             return "Unable to decode the provided data."
-        case .internal_:
+        case .`internal`:
             return "An internal error occurred in the Security framework."
         case .unsupportedAlgorithm:
             return "An unsupported algorithm was encountered."
@@ -2218,7 +2240,7 @@ extension Status : RawRepresentable, CustomStringConvertible {
             return "Signature invalid on MP message"
         case .otrTooOld:
             return "Message is too old to use"
-        case .otridTooNew:
+        case .otrIDTooNew:
             return "Key ID is too new to use! Message from the future?"
         case .serviceNotAvailable:
             return "The required service is not available."
