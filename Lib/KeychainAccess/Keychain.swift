@@ -722,7 +722,7 @@ public final class Keychain {
         query[Class] = itemClass.rawValue
         query[AttributeSynchronizable] = SynchronizableAny
         query[MatchLimit] = MatchLimitAll
-        query[ReturnAttributes] = true
+        query[ReturnAttributes] = kCFBooleanTrue
         
         var result: AnyObject?
         let status = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
@@ -756,9 +756,9 @@ public final class Keychain {
         var query = [String: Any]()
         query[Class] = itemClass.rawValue
         query[MatchLimit] = MatchLimitAll
-        query[ReturnAttributes] = true
+        query[ReturnAttributes] = kCFBooleanTrue
         #if os(iOS) || os(watchOS) || os(tvOS)
-        query[ReturnData] = true
+        query[ReturnData] = kCFBooleanTrue
         #endif
         
         var result: AnyObject?
@@ -928,9 +928,9 @@ public final class Keychain {
     fileprivate func items() -> [[String: Any]] {
         var query = options.query()
         query[MatchLimit] = MatchLimitAll
-        query[ReturnAttributes] = true
+        query[ReturnAttributes] = kCFBooleanTrue
         #if os(iOS) || os(watchOS) || os(tvOS)
-        query[ReturnData] = true
+        query[ReturnData] = kCFBooleanTrue
         #endif
         
         var result: AnyObject?
